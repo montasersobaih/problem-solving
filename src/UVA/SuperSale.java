@@ -1,5 +1,7 @@
 package UVA;
 
+//Knapsack
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
@@ -9,8 +11,9 @@ import static java.lang.Integer.parseInt;
 public class SuperSale {
     public static void main(String[] args) throws Exception {
         BufferedReader b = new BufferedReader(new InputStreamReader(System.in));
-        int loop = parseInt(b.readLine());
-        while (loop-- > 0) {
+
+        int tc = parseInt(b.readLine());
+        while (tc-- > 0) {
             Weight[] w = new Weight[parseInt(b.readLine()) + 1];
             for (int i = 1; i < w.length; i++) {
                 StringTokenizer token = new StringTokenizer(b.readLine());
@@ -31,6 +34,7 @@ public class SuperSale {
                 }
                 sum += x[x.length - 1][x[0].length - 1];
             }
+
             System.out.println(sum);
         }
     }
