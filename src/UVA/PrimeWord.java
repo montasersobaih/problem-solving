@@ -4,15 +4,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class PrimeWord {
-
     public static void main(String[] args) throws Exception {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        String line;
-        while ((line = reader.readLine()) != null) {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        String str;
+        while ((str = bf.readLine()) != null) {
             int sum = 0;
-            for (int i = 0; i < line.length(); i++) {
-                sum += find(line.charAt(i));
+            for (int i = 0; i < str.length(); i++) {
+                sum += find(str.charAt(i));
             }
             System.out.println((isPrime(sum)) ? "It is a prime word." : "It is not a prime word.");
         }
@@ -32,7 +30,6 @@ public class PrimeWord {
                 return false;
             }
         }
-
         return true;
     }
 }

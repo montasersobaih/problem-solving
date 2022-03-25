@@ -5,41 +5,20 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+import static java.lang.Integer.parseInt;
+
 public class AutomateTheGrades {
-
     public static void main(String[] args) throws Exception {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        int tc = Integer.parseInt(reader.readLine());
-        for (int i = 1; i <= tc; i++) {
-            StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
-
-            int[] n = new int[7];
-            for (int j = 0; j < n.length; j++) {
-                n[j] = Integer.parseInt(tokenizer.nextToken());
+        BufferedReader b = new BufferedReader(new InputStreamReader(System.in));
+        int loop = Integer.parseInt(b.readLine()), x[] = new int[7];
+        for (int i = 1; i <= loop; i++) {
+            StringTokenizer token = new StringTokenizer(b.readLine());
+            for (int j = 0; j < x.length; j++) {
+                x[j] = parseInt(token.nextToken());
             }
-
-            Arrays.sort(n, 4, n.length);
-            n[4] = (n[5] + n[6]) / 2;
-
-            int sum = 0;
-            for (int j = 0; j < n.length - 2; j++) {
-                sum += n[j];
-            }
-
-            char symbol;
-            if (sum >= 90)
-                symbol = 'A';
-            else if (sum >= 80)
-                symbol = 'B';
-            else if (sum >= 70)
-                symbol = 'C';
-            else if (sum >= 60)
-                symbol = 'D';
-            else
-                symbol = 'F';
-
-            System.out.printf("Case %d: %c\n", i, symbol);
+            Arrays.sort(x, 4, x.length);
+            int sum = x[0] + x[1] + x[2] + x[3] + (x[5] + x[6]) / 2;
+            System.out.format("Case %d: %s\n", i, (sum >= 90) ? 'A' : (sum >= 80) ? 'B' : (sum >= 70) ? 'C' : (sum >= 60) ? 'D' : 'F');
         }
     }
 }
