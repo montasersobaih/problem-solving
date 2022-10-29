@@ -30,8 +30,7 @@ public class Puzzles {
 
         Arrays.sort(n);
 
-        int min = Integer.MAX_VALUE;
-        int i = 0;
+        int i = 0, min = Integer.MAX_VALUE;
         do {
             min = Math.min(min, n[i + x] - n[i]);
             i++;
