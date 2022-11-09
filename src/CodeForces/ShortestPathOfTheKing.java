@@ -5,13 +5,22 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * @author Montaser Sbaih
+ * @version 1.0
+ * @email montaser.jjs@gmail.com
+ * @phone +962786258874
+ * @link https://codeforces.com/problemset/problem/3/A
+ * @since 01-06-2022
+ */
+
 public class ShortestPathOfTheKing {
 
-    private static int[] xAxis = {1, 1, 1, 0, -1, -1, -1, 0};
+    private static final int[] xAxis = {1, 1, 1, 0, -1, -1, -1, 0};
 
-    private static int[] yAxis = {1, 0, -1, -1, -1, 0, 1, 1};
+    private static final int[] yAxis = {1, 0, -1, -1, -1, 0, 1, 1};
 
-    private static String[] move = {"RU", "R", "RD", "D", "LD", "L", "LU", "U"};
+    private static final String[] move = {"RU", "R", "RD", "D", "LD", "L", "LU", "U"};
 
     public static void main(String[] args) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -24,9 +33,9 @@ public class ShortestPathOfTheKing {
     }
 
     public static String bfs(int startX, int startY, int endX, int endY) {
-        Queue<State> q = new LinkedList<>();
         boolean[][] board = new boolean[8][8];
 
+        Queue<State> q = new LinkedList<>();
         q.offer(new State(startX, startY, 0, ""));
         board[startX][startY] = true;
 
