@@ -58,6 +58,7 @@ class FishmongerSolution1 {
         }
     }
 
+    //This is Jin code.. I don't know how it was accepted
     private static int[] dijkstra(Edge[][] edges, int start, int end, int maxTime) {
         boolean[] visited = new boolean[edges.length];
         Queue<Edge> queue = new PriorityQueue<>();
@@ -73,6 +74,11 @@ class FishmongerSolution1 {
             } else {
                 for (int i = 0; i < edges[u.vertex].length; i++) {
                     Edge edge = edges[u.vertex][i];
+                    /*
+                     * How it works? !!!!!!!!!!!!!
+                     * What my mind was thinking when I decide to put '!visited[u.vertex]'
+                     * instead of '!visited[edge.vertex]'? !!!!
+                     */
                     if (!visited[u.vertex] || edge.time != 0 && u.time + edge.time <= maxTime) {
                         visited[u.vertex] = true;
                         queue.add(new Edge(i, u.time + edge.time, u.toll + edge.toll));
@@ -102,6 +108,87 @@ class FishmongerSolution1 {
 }
 
 class FishmongerSolution2 {
+
+    public static void main(String[] args) throws Exception {
+        Reader input = new InputStreamReader(System.in);
+
+        try (BufferedReader reader = new BufferedReader(input)) {
+            StringTokenizer tokenizer;
+
+            String line;
+            while (!(line = reader.readLine()).equals("0 0")) {
+                tokenizer = new StringTokenizer(line);
+                int nodes = Integer.parseInt(tokenizer.nextToken());
+                int maxTime = Integer.parseInt(tokenizer.nextToken());
+
+                Edge[][] adjacency = new Edge[nodes][nodes];
+
+                for (int i = 0; i < nodes; i++) {
+                    tokenizer = new StringTokenizer(reader.readLine());
+                    for (int j = 0; j < nodes; j++) {
+                        int time = Integer.parseInt(tokenizer.nextToken());
+                        adjacency[i][j] = new Edge(j, time, Integer.MAX_VALUE);
+                    }
+                }
+
+                reader.readLine();
+
+                for (int i = 0; i < nodes; i++) {
+                    tokenizer = new StringTokenizer(reader.readLine());
+                    for (int j = 0; tokenizer.hasMoreTokens(); j++) {
+                        adjacency[i][j].toll = Integer.parseInt(tokenizer.nextToken());
+                    }
+                }
+
+                reader.readLine();
+
+                int[] result = dijkstra(adjacency, 0, nodes - 1, maxTime);
+                System.out.printf("%d %d\n", result[0], result[1]);
+            }
+        }
+    }
+
+    private static int[] dijkstra(Edge[][] adjacency, int start, int end, int maxTime) {
+        Queue<Edge> queue = new PriorityQueue<>();
+
+        queue.offer(adjacency[start][0]);
+
+        while (!queue.isEmpty()) {
+            Edge oEdge = queue.poll();
+
+            if (oEdge.vertex == end) {
+                return new int[]{oEdge.toll, oEdge.time};
+            } else {
+                Edge[] edges = adjacency[oEdge.vertex];
+                for (Edge nEdge : edges) {
+                    if (nEdge.time != 0 && oEdge.time + nEdge.time <= maxTime) {
+                        queue.add(new Edge(nEdge.vertex, oEdge.time + nEdge.time, oEdge.toll + nEdge.toll));
+                    }
+                }
+            }
+        }
+
+        return new int[]{-1, -1};
+    }
+
+    private static class Edge implements Comparable<Edge> {
+
+        private int vertex, time, toll;
+
+        private Edge(int vertex, int time, int toll) {
+            this.vertex = vertex;
+            this.time = time;
+            this.toll = toll;
+        }
+
+        @Override
+        public int compareTo(Edge v) {
+            return this.toll - v.toll;
+        }
+    }
+}
+
+class FishmongerSolution3 {
 
     public static void main(String[] args) throws Exception {
         Reader input = new InputStreamReader(System.in);
